@@ -61,11 +61,12 @@ module ActiveScaffold::Actions
     protected
 
     def do_list_filter
-#         self.active_scaffold_conditions = merge_conditions(self.active_scaffold_conditions, *search_conditions)
-#         @filtered = !search_conditions.blank?
-# 
-#         includes_for_search_columns = columns.collect{ |column| column.includes}.flatten.uniq.compact
-#         self.active_scaffold_joins.concat includes_for_search_columns
+      # move to hook into these
+      # self.active_scaffold_conditions = merge_conditions(self.active_scaffold_conditions, *search_conditions)
+      # @filtered = !search_conditions.blank?
+      # 
+      # includes_for_search_columns = columns.collect{ |column| column.includes}.flatten.uniq.compact
+      # self.active_scaffold_joins.concat includes_for_search_columns
 
     
       verbose_filter = []

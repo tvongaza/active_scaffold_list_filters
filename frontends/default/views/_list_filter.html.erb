@@ -37,10 +37,7 @@
 <br style='clear: left;' />
 
 <%= hidden_field_tag('list_filter[input]','filter') %>
-<!--
-<a href="javascript:void(0)" class="cancel" onclick="f = this.up('form'); $('list_filter[input]').value = 'save'; f.onsubmit();"><img src='/images/active_scaffold/default/filter_save.png' border='0' valign='bottom'> <%= as_('Save Current Filters as Default') -%></a>
-|
--->
+
 <%= submit_tag "Clear Filters & Close", :onclick =>
 "$('#{loading_indicator_id(:action => :table)}').style.visibility = 'visible';" +
 "$('list_filter_input').setValue('reset');" +
