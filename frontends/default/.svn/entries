@@ -1,40 +1,0 @@
-8
-
-dir
-662
-http://svn.odil.ca/playground/surveyor/rails/vendor/plugins/active_scaffold_list_filters/frontends/default
-http://svn.odil.ca/playground
-
-
-
-2009-02-06T01:09:44.326086Z
-662
-tvg
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-9e2db64e-2cbb-4eec-a8ad-4fd7fbc11755
-
-images
-dir
-
-javascripts
-dir
-
-stylesheets
-dir
-
-views
-dir
-
