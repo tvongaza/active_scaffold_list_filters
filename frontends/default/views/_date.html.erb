@@ -1,0 +1,10 @@
+<% 
+name = list_filter_input_name(filter)
+
+start_date = filter.params[:start_date] #|| 7.days.ago
+end_date = filter.params[:end_date] #|| Time.now
+
+%>
+<%= calendar_date_select_tag("#{name}[start_date]", start_date, :time => true, :onchange => "$('#{list_filter_form_id}').onsubmit();") %>
+to
+<%= calendar_date_select_tag("#{name}[end_date]", end_date, :time => true, :onchange => "$('#{list_filter_form_id}').onsubmit();") %>

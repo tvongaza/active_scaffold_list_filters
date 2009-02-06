@@ -1,0 +1,68 @@
+<%
+  url_options = params_for(:action => :list_filter)
+-%>
+<% href = url_for(params_for(:action => :update_table, :escape => false).delete_if{|k,v| k == 'list_filter'}) -%>
+<%= form_remote_tag :url => href,
+                    :method => :get,
+                    :before => "addActiveScaffoldPageToHistory('#{href}', '#{params[:controller]}')",
+                    :after => "$('#{loading_indicator_id(:action => :table)}').style.visibility = 'visible';",
+                    :complete => "$('#{loading_indicator_id(:action => :table)}').style.visibility = 'hidden';",
+                    :failure => "ActiveScaffold.report_500_response('#{active_scaffold_id}')",
+                    :update => active_scaffold_content_id,
+                    :html => { :href => href, :id => list_filter_form_id, :class => 'list_filter' } %>
+
+<h3 id="trigger"><%=as_('Filters')%></h3>
+
+<div class="filter_accordion">
+		<% filter_config.filters.each do |filter| %>
+			<div class="filter_handle" title="<%=as_(filter.label)%>"><canvas width=22 height=150></canvas><!--[if IE]><div class="filter_trigger"></div><![endif]--></div>
+		<% end %>
+		
+		<% 
+		id = params[:eid] || params[:controller]
+		session_index = "as:#{id}"
+		filter_session_base = session[session_index]["list_filter"] unless session[session_index]["list_filter"].nil?		
+		filter_config.filters.each do |filter|
+				filter_session = filter_session_base[filter.filter_type] unless filter_session_base.nil?
+				filter_session = filter_session[filter.name.to_s] unless filter_session.nil?
+				filter.session = filter_session
+		%>
+			<div class="filter_body">
+				<h3><%=as_(filter.label)%></h3>
+				<%= render :partial => filter.filter_type, :locals => { :filter => filter, :filter_session => filter_session } -%>
+			</div>
+		<% end %>	
+</div>
+
+<br style='clear: left;' />
+
+<%= hidden_field_tag('list_filter[input]','filter') %>
+<!--
+<a href="javascript:void(0)" class="cancel" onclick="f = this.up('form'); $('list_filter[input]').value = 'save'; f.onsubmit();"><img src='/images/active_scaffold/default/filter_save.png' border='0' valign='bottom'> <%= as_('Save Current Filters as Default') -%></a>
+|
+-->
+<%= submit_tag "Clear Filters & Close", :onclick =>
+"$('#{loading_indicator_id(:action => :table)}').style.visibility = 'visible';" +
+"$('list_filter_input').setValue('reset');" +
+"$('#{action_link_id(url_options[:action],url_options[:id] || url_options[:parent_id])}').removeClassName('disabled');" +
+"$('list_filter_input').setValue('reset');" +
+"$('#{list_filter_form_id}').onsubmit();" +
+"$('#{list_filter_form_id}').up('div').remove();" +
+"return false;"  %> 
+
+
+<%= loading_indicator_tag(:action => :list_filter) %>
+</form>
+
+<script type="text/javascript">
+  init_filter_accordions();
+</script>
+
+<script type="text/javascript">
+//<![CDATA[
+  new Form.EventObserver('<%= list_filter_form_id %>', function(element, value) {
+    if (!$(element.id)) return false; // because the element may have been destroyed
+    $(element).onsubmit();
+  });
+//]]>
+</script>
