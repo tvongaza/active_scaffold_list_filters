@@ -5,8 +5,6 @@ module ActiveScaffold::Config
     def initialize(core_config)
       @core = core_config
 
-			#puts @core.columns.inspect
-
       # originates here
       @list_filters = ActiveScaffold::DataStructures::ListFilters.new()
       
