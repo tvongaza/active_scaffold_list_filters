@@ -1,5 +1,5 @@
 <%
-	ar_class = filter.association_tree.last.class_name.constantize
+	ar_class = filter.association_class
 	associated_values = ar_class.find(:all).sort {|a,b| a.to_label <=> b.to_label }
 -%>
 
