@@ -6,7 +6,7 @@ class ListFilters::AssociationFilter < ActiveScaffold::DataStructures::ListFilte
       association = association_class
       options = {}
       options[:include] = association_name
-      options[:conditions] = ["#{association.klass.table_name}.id IN (?)", params]
+      options[:conditions] = ["#{association.table_name}.id IN (?)", params]
 
       return options      
   	end unless params.nil? || params.empty?
