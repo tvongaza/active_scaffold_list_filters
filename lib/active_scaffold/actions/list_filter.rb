@@ -1,8 +1,9 @@
 module ActiveScaffold::Actions
   module ListFilter
     def self.included(base)
-      active_scaffold_default_frontend_path = File.join(Rails.root, 'vendor', 'plugins', File.expand_path(__FILE__).match(/vendor\/plugins\/([^\/]*)/)[1], 'frontends', 'default' , 'views')
-      base.append_view_path(active_scaffold_default_frontend_path)      
+      # This code moved to config/list_filter.rb:setup_view_paths
+      #active_scaffold_default_frontend_path = File.join(Rails.root, 'vendor', 'plugins', File.expand_path(__FILE__).match(/vendor\/plugins\/([^\/]*)/)[1], 'frontends', 'default' , 'views')
+      #base.append_view_path(active_scaffold_default_frontend_path)      
       
       base.before_filter :list_filter_authorized?, :only => [:list_filter]
       base.before_filter :init_filter_session_var

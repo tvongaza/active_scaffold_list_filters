@@ -7,6 +7,13 @@ module ActiveScaffold::Config
 
       # originates here
       @list_filters = ActiveScaffold::DataStructures::ListFilters.new()      
+      setup_view_paths
+    end
+
+    # can't seem to alias method chain the active scaffold method, so just setup our view paths when we are config'ed!
+    def setup_view_paths
+      active_scaffold_default_frontend_path = File.join(Rails.root, 'vendor', 'plugins', File.expand_path(__FILE__).match(/vendor\/plugins\/([^\/]*)/)[1], 'frontends', 'default' , 'views')
+      ActionController::Base.append_view_path(ActiveScaffoldPath.new(active_scaffold_default_frontend_path))
     end
     
     # global level configuration
