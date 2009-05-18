@@ -8,7 +8,7 @@ module ActiveScaffold::DataStructures
       @label = filter_name.to_s.humanize
 			@core = core
 			@options = options
-			@filter_type = self.class.to_s.demodulize[0..-7].downcase
+			@filter_type = self.class.to_s.demodulize[0..-7].underscore
 			@defaults = defaults
 			@session = nil
 
