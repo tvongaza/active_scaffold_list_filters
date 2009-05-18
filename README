@@ -65,14 +65,14 @@ h3. Creating your own filters:
 It is simple to create your own filter.
 
 * Choose a name to use, ie "association".
-* Create a new view in vendor/plugins/active_scaffold_list_filters/frontends/default/views/, ie: vendor/plugins/active_scaffold_list_filters/default/views/_association.rhtml
-* Use this to create a way for your user to interact with your filter.  You have access to a ListFilter object (see vendor/plugins/lib/active_scaffold/data_structures/list_filter.rb), which you'll later extend with your own methods.  This object allows you get your filters type, name, and options set in the controller.
+* Create a partial template for the filter in app/views/active_scaffold_list_filters, ie: app/views/active_scaffold_list_filters/_association.rhtml
+* Use this to create a way for your user to interact with your filter. You have access to a ListFilter object (see vendor/plugins/lib/active_scaffold/data_structures/list_filter.rb), which you'll later extend with your own methods.  This object allows you get your filters type, name, and options set in the controller.
 ** Your filter view must set form fields.  Use the list_filter_input_name(filter) to get a base name to use.
 ** If you're setting more then one field then use form array's, ie: list_filter_input_name(filter)['field2'], or if you're using checkboxes or multi select menu's you can use an array like so:
 
   list_filter_input_name(filter)[]
 
-* Create a new List Filter in vendor/plugins/active_scaffold_list_filters/lib/list_filters, ie: vendor/plugins/active_scaffold_list_filters/list_filters/association.rb.  This file must have the following layout:
+* Create a new List Filter in app/controllers/list_filters, ie: app/controllers/list_filters/association.rb.  This file must have the following layout:
 
   class ListFilters::Association < ActiveScaffold::DataStructures::ListFilter
 
