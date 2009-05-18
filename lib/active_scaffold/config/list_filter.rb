@@ -12,6 +12,12 @@ module ActiveScaffold::Config
 
     # can't seem to alias method chain the active scaffold method, so just setup our view paths when we are config'ed!
     def setup_view_paths
+      # add app/views/active_scaffold_list_filters to the view paths for custom filters
+      ActionController::Base.view_paths.each do |dir|
+        if File.exists?(File.join(dir,"active_scaffold_list_filters"))
+          ActionController::Base.append_view_path(File.join(dir,"active_scaffold_list_filters")) 
+        end
+      end
       active_scaffold_default_frontend_path = File.join(Rails.root, 'vendor', 'plugins', File.expand_path(__FILE__).match(/vendor\/plugins\/([^\/]*)/)[1], 'frontends', 'default' , 'views')
       ActionController::Base.append_view_path(ActiveScaffoldPath.new(active_scaffold_default_frontend_path))
     end
