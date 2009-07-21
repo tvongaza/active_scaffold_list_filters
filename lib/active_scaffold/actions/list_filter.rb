@@ -1,9 +1,16 @@
 module ActiveScaffold::Actions
   module ListFilter
     def self.included(base)
-      # This code moved to config/list_filter.rb:setup_view_paths
-      #active_scaffold_default_frontend_path = File.join(Rails.root, 'vendor', 'plugins', File.expand_path(__FILE__).match(/vendor\/plugins\/([^\/]*)/)[1], 'frontends', 'default' , 'views')
-      #base.append_view_path(active_scaffold_default_frontend_path)      
+      # add app/views/active_scaffold_list_filters to the view paths for custom filters
+      ActionController::Base.view_paths.each do |dir|
+        if File.exists?(File.join(dir,"active_scaffold_list_filters"))
+          base.add_active_scaffold_path(File.join(dir,"active_scaffold_list_filters"))
+        end
+      end
+      
+      # Add default frontend path
+      active_scaffold_default_frontend_path = File.join(Rails.root, 'vendor', 'plugins', File.expand_path(__FILE__).match(/vendor\/plugins\/([^\/]*)/)[1], 'frontends', 'default' , 'views')
+      base.add_active_scaffold_path(active_scaffold_default_frontend_path)
       
       base.before_filter :list_filter_authorized?, :only => [:list_filter]
       base.before_filter :init_filter_session_var
