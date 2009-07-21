@@ -18,8 +18,13 @@ class ListFilters::DateFilter < ActiveScaffold::DataStructures::ListFilter
   
   def parse_dates(start_date, end_date)
     begin
-      start_date = start_date.to_date
-      end_date = end_date.to_date
+      # This code doesn't work because #to_date is no longer defined for hashes
+      # start_date = start_date.to_date
+      # end_date = end_date.to_date
+      
+      start_date = Date.new(start_date["year"].to_i, start_date["month"].to_i, start_date["day"].to_i)
+      end_date = Date.new(end_date["year"].to_i, end_date["month"].to_i, end_date["day"].to_i)
+      
       return start_date, end_date
     rescue
       return nil, nil

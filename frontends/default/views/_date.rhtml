@@ -1,10 +1,11 @@
 <% 
 name = list_filter_input_name(filter)
 
-start_date = filter.params[:start_date] #|| 7.days.ago
-end_date = filter.params[:end_date] #|| Time.now
+start_date, end_date = filter.parse_dates(filter_session[:start_date], filter_session[:end_date]) if filter_session
+start_date ||= filter.params[:start_date]
+end_date ||= filter.params[:end_date]
 
 %>
-<%= calendar_date_select_tag("#{name}[start_date]", start_date, :time => true, :onchange => "$('#{list_filter_form_id}').onsubmit();") %>
+<%= select_date(start_date, :prefix => "#{name}[start_date]") %>
 to
-<%= calendar_date_select_tag("#{name}[end_date]", end_date, :time => true, :onchange => "$('#{list_filter_form_id}').onsubmit();") %>
+<%= select_date(end_date, :prefix => "#{name}[end_date]") %>
