@@ -1,0 +1,10 @@
+<%
+	session_value = nil
+	session_value = filter_session unless filter_session.nil?
+	session_value = filter.params[0] unless filter.params.nil?
+-%>
+  	<div style='display: inline; float: left; width: 17em; overflow: hidden;'>
+			<%= content_tag(:label, "#{filter.field_name}&nbsp;" +
+					text_field_tag(list_filter_input_name(filter) + "[]",
+						"#{session_value}")) %>
+		</div>
