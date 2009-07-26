@@ -1,0 +1,12 @@
+<%= submit_tag "Set", :onclick =>
+"$('#{loading_indicator_id(:action => :table)}').style.visibility = 'visible';" %> 
+<%
+  klass = filter.get_column(filter.name).association.klass
+  controller_path = active_scaffold_controller_for(klass).controller_path
+  session_value = nil
+  session_value = filter_session unless filter_session.nil?
+  session_value = filter.params unless filter.params.nil? || filter.params.empty?
+  current = []
+  current = klass.find(:all, :conditions => { :id => session_value}) unless session_value.nil?
+-%>
+<%= record_multi_select_field(list_filter_input_name(filter), current, {:controller => controller_path } ) %>
