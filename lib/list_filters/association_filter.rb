@@ -9,22 +9,22 @@ class ListFilters::AssociationFilter < ActiveScaffold::DataStructures::ListFilte
       options[:conditions] = ["#{association.table_name}.id IN (?)", params]
 
       return options      
-  	end unless params.nil? || params.empty?
-  end
-  
-  def verbose
-    begin
-  	  ar_class = association_class
-    	associated_values = ar_class.find(params).sort {|a,b| a.to_label <=> b.to_label }
-    	verbose_values = associated_values.collect{|av| av.to_label}.join(", ")
-    	return verbose_values
     end unless params.nil? || params.empty?
   end
-  
+
+  def verbose
+    begin
+      ar_class = association_class
+      associated_values = ar_class.find(params).sort {|a,b| a.to_label <=> b.to_label }
+      verbose_values = associated_values.collect{|av| av.to_label}.join(", ")
+      return verbose_values
+    end unless params.nil? || params.empty?
+  end
+
   def association_name
     @options[:association] || @name
   end
-  
+
   def association_class
     association = @core.model.reflect_on_association(association_name)
     association.klass

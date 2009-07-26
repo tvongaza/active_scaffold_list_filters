@@ -1,14 +1,14 @@
 module ActiveScaffold::Config
   class ListFilter < Base  
     self.crud_type = :read
-    
+
     def initialize(core_config)
       @core = core_config
 
       # originates here
       @list_filters = ActiveScaffold::DataStructures::ListFilters.new()
     end
-    
+
     # global level configuration
     # --------------------------
     # the ActionLink for this action
@@ -19,11 +19,11 @@ module ActiveScaffold::Config
     # ----------------------------
     attr_writer :link
     def link
-			if @list_filters.length > 0
-				self.class.link.clone
-			end
+      if @list_filters.length > 0
+        self.class.link.clone
+      end
     end
-    
+
     # provides access to the list of columns specifically meant for the Table to use
     def columns
       self.columns = @core.columns._inheritable unless @columns # lazy evaluation
@@ -34,12 +34,12 @@ module ActiveScaffold::Config
       @columns.action = self
     end
 
-		def get_column(col)
-			@columns.detect{|c| col.to_sym == c.name.to_sym }
-		end
-		
+    def get_column(col)
+      @columns.detect{|c| col.to_sym == c.name.to_sym }
+    end
+
     # provides access to the list of filters
-		attr_reader :filters
+    attr_reader :filters
     def filters
       @list_filters
     end

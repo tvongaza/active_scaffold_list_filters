@@ -3,19 +3,19 @@ module ActiveScaffold::DataStructures
 
     def initialize
       @set = []
-			@columns = {}
+      @columns = {}
     end
 
     # adds an ListFilter, creating one from the arguments if need be
     def add(filter_type, filter_name, columns, options = {}, defaults = {})
-			filter_class = ("ListFilters::#{filter_type.to_s.camelize}Filter").constantize
-			filter = filter_class.new(filter_name, columns, options, defaults)
-			@set << filter # unless @set.any? {|f| f.filter == filter.filter}
-		end
+      filter_class = ("ListFilters::#{filter_type.to_s.camelize}Filter").constantize
+      filter = filter_class.new(filter_name, columns, options, defaults)
+      @set << filter # unless @set.any? {|f| f.filter == filter.filter}
+    end
     alias_method :<<, :add
 
     # finds an ListFilter by matching the filtername
-		# doesn't make sense.. can have more then one filter of each type
+    # doesn't make sense.. can have more then one filter of each type
     def [](val)
       @set.find {|item| item.filter == val}
     end
