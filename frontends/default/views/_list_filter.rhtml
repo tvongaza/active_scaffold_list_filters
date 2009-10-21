@@ -38,7 +38,7 @@
 
 <%= hidden_field_tag('list_filter[input]','filter') %>
 
-<%= submit_tag "Clear Filters & Close", :onclick =>
+<%= submit_tag as_("Clear Filters & Close"), :onclick =>
 "$('#{loading_indicator_id(:action => :table)}').style.visibility = 'visible';" +
 "$('list_filter_input').setValue('reset');" +
 "$('#{action_link_id(url_options[:action],url_options[:id] || url_options[:parent_id])}').removeClassName('disabled');" +
